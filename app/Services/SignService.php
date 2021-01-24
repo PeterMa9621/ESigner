@@ -27,9 +27,9 @@ class SignService
 
         $command = 'pdftk %s multistamp %s output %s';
         $command = sprintf($command, $originalPath, $signaturePdfPath, $outputPath);
-        echo $command;
+
         exec($command);
-        var_dump($output);
+
         unlink($signaturePdfPath);
         unlink($imagePath);
         return $outputRelativePath;
