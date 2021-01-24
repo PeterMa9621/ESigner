@@ -77,6 +77,14 @@
         <main class="py-4 mt-5">
             @yield('content')
         </main>
+
+        <footer>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <small class="d-block mt-5 mb-3 text-muted">Copyright © 2019-2021, Peter</small>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
