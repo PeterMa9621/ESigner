@@ -34,7 +34,7 @@
                                         Operation
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#" @click="showPdf({setScaleTo: 1})">{{ isSigned?'&#128221; Edit':'&#9997; Sign' }}</a>
+                                        <a class="dropdown-item" href="#" @click="initCanvas">{{ isSigned?'&#128221; Edit':'&#9997; Sign' }}</a>
                                         <a v-if="isSigned" class="dropdown-item" href="#" @click="downloadPdf">&#128190; Download</a>
                                     </div>
                                 </div>
