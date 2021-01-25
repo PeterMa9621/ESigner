@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Storage;
 
 class SignService
 {
+    /**
+     * Used to sign a document with a signature picture in base64, return a relative path of signed document
+     * @param $signatureBase64
+     * @param $document
+     * @param $signaturePosition
+     * @return string
+     */
     public static function signDocument($signatureBase64, $document, $signaturePosition) {
         $result = SignService::convertSignatureToPdf($signatureBase64, $document, $signaturePosition);
         $signaturePdfPath = $result[0];
@@ -35,6 +42,13 @@ class SignService
         return $outputRelativePath;
     }
 
+    /**
+     * Convert a signature picture to a pdf file
+     * @param $signatureBase64
+     * @param $document
+     * @param $signaturePosition
+     * @return array
+     */
     public static function convertSignatureToPdf($signatureBase64, $document, $signaturePosition) {
         $imageRelativePath = 'tmp/' . $document['id'] . '.png';
         $imagePath = storage_path('app/' . $imageRelativePath);

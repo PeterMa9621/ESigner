@@ -12,7 +12,7 @@ use phpDocumentor\Reflection\Types\Integer;
 class SignerController extends Controller
 {
     /**
-     * Show the application dashboard.
+     * Show the document that will be signed.
      *
      * @param Integer $id
      * @return \Illuminate\Contracts\Support\Renderable
@@ -35,6 +35,12 @@ class SignerController extends Controller
         ]);
     }
 
+    /**
+     * Used to sign a document
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sign($id, Request $request) {
         $document = Document::findOrFail($id);
         $signaturePosition = SignaturePosition::findOrFail($document['signature_position_id']);

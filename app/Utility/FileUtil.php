@@ -6,6 +6,12 @@ use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class FileUtil {
+    /**
+     * Convert base64 string to a pdf file
+     * @param $base64
+     * @return string
+     * @throws Exception
+     */
     public static function base64ToPdf($base64) {
         try {
             $filename = bin2hex(openssl_random_pseudo_bytes(16)) . '.pdf';
