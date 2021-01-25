@@ -7,6 +7,7 @@ use Tests\TestCase;
 
 class RoutesTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * Test home page.
      *

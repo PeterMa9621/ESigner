@@ -28,7 +28,8 @@ class SignaturePositionController extends Controller
     }
 
     public function update($id, Request $request) {
-        $signaturePosition = SignaturePosition::whereId($id)->update($request->all());
+        $signaturePosition = SignaturePosition::findOrFail($id);
+        $signaturePosition->update($request->all());
 
         return (new SignaturePositionResource($signaturePosition))
             ->response()

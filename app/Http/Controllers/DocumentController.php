@@ -45,7 +45,8 @@ class DocumentController extends Controller
     }
 
     public function update($id, Request $request) {
-        $document = Document::whereId($id)->update($request->all());
+        $document = Document::findOrFail($id);
+        $document->update($request->all());
 
         return (new DocumentResource($document))
             ->response()
