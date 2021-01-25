@@ -16,7 +16,7 @@
                  @drag="prevent" @dragstart="prevent" @dragend="onDragLeave" @dragover="onDragOver"
                  @dragenter="onDragOver" @dragleave="onDragLeave">
                 <div class="d-flex justify-content-center">
-                    <input type="file" id="file" hidden @select="onSelectFile" />
+                    <input type="file" accept="application/pdf" id="file" hidden @change="onSelectFile" />
                     <label for="file"><strong class="choose-file">Choose a file</strong><span v-if="canDrag"> or drag it here</span>.</label>
                 </div>
             </div>

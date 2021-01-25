@@ -63387,8 +63387,13 @@ var render = function() {
               [
                 _c("div", { staticClass: "d-flex justify-content-center" }, [
                   _c("input", {
-                    attrs: { type: "file", id: "file", hidden: "" },
-                    on: { select: _vm.onSelectFile }
+                    attrs: {
+                      type: "file",
+                      accept: "application/pdf",
+                      id: "file",
+                      hidden: ""
+                    },
+                    on: { change: _vm.onSelectFile }
                   }),
                   _vm._v(" "),
                   _c("label", { attrs: { for: "file" } }, [
