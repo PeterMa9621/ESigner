@@ -95,7 +95,7 @@
                 UploadService.uploadDocument(title, this.file, signaturePosition['id'], pdfWidth, pdfHeight, numPages).then(document => {
                     this.$swal('Succeed!', 'You created a document successfully', 'success');
                     setTimeout(() => {
-                        window.location = '/signer/' + document['data']['id'];
+                        window.location = '/signer/' + document['data']['key'];
                     }, 1000);
                 }).catch(reason => {
                     console.log(reason);

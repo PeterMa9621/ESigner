@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\JWTSetting;
 use App\Http\Resources\DocumentCollection;
 use App\Http\Resources\Document as DocumentResource;
 use App\Model\Document;
 use App\Utility\FileUtil;
+use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
@@ -39,9 +41,17 @@ class DocumentController extends Controller
             'numPages' => $request['numPages']
         ]);
 
-        return (new DocumentResource($document))
-            ->response()
-            ->setStatusCode(201);
+        $documentResource = new DocumentResource($document);
+        $documentArray = $documentResource->toArray($request);
+
+        $key = JWT::encode(['data' => ['id' => $document->id], 'exp' => time() + 86400], JWTSetting::$DOCUMENT_KEY);
+
+        return response()->json([
+            'data' => [
+                'document' => $documentArray,
+                'key' => $key
+            ]
+        ], 201);
     }
 
     public function update($id, Request $request) {

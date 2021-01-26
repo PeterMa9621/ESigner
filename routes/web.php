@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'UploaderController@index')->name('home');
-Route::get('/signer/{id}', 'SignerController@index')->name('signer');
+Route::get('/signer/{key}', 'SignerController@index')->name('signer');
 Route::get('/uploader', 'UploaderController@index')->name('uploader');

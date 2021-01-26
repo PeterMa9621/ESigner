@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\JWTSetting;
 use App\Model\Document;
 use App\Model\SignaturePosition;
 use App\Http\Resources\SignaturePosition as SignaturePositionResource;
 use App\Services\SignService;
+use Exception;
+use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Integer;
 
@@ -14,25 +17,31 @@ class SignerController extends Controller
     /**
      * Show the document that will be signed.
      *
-     * @param Integer $id
+     * @param Integer $key
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($id) {
-        $document = Document::findOrFail($id);
-        $isSigned = $document['is_signed'];
-        if(!$isSigned)
-            $pdf = file_get_contents(storage_path('app/' . $document['path']));
-        else
-            $pdf = file_get_contents(storage_path('app/' . $document['signed_path']));
-        $pdfBase64 = base64_encode($pdf);
-        $signaturePosition = new SignaturePositionResource(SignaturePosition::findOrFail($document['signature_position_id']));
-        return view('signer', [
-            'pdfBase64' => $pdfBase64,
-            'title' => $document['name'],
-            'signaturePosition' => json_encode($signaturePosition),
-            'hasSigned' => $isSigned,
-            'documentId' => $id
-        ]);
+    public function index($key) {
+        try {
+            $payload = JWT::decode($key, JWTSetting::$DOCUMENT_KEY, ['HS256']);
+            $id = $payload->data->id;
+            $document = Document::findOrFail($id);
+            $isSigned = $document['is_signed'];
+            if(!$isSigned)
+                $pdf = file_get_contents(storage_path('app/' . $document['path']));
+            else
+                $pdf = file_get_contents(storage_path('app/' . $document['signed_path']));
+            $pdfBase64 = base64_encode($pdf);
+            $signaturePosition = new SignaturePositionResource(SignaturePosition::findOrFail($document['signature_position_id']));
+            return view('signer', [
+                'pdfBase64' => $pdfBase64,
+                'title' => $document['name'],
+                'signaturePosition' => json_encode($signaturePosition),
+                'hasSigned' => $isSigned,
+                'documentId' => $id
+            ]);
+        } catch (Exception $exception) {
+            return abort(404);
+        }
     }
 
     /**

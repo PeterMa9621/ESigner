@@ -2552,7 +2552,7 @@ var hasAdvancedUpload = function () {
         _this2.$swal('Succeed!', 'You created a document successfully', 'success');
 
         setTimeout(function () {
-          window.location = '/signer/' + document['data']['id'];
+          window.location = '/signer/' + document['data']['key'];
         }, 1000);
       })["catch"](function (reason) {
         console.log(reason);
